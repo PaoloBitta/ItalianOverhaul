@@ -13,7 +13,7 @@ namespace ItalianOverhaul
         public enum IoCompanyType
         {
             SocietaResponsabilitaLimitata,          // SRL - pretty much the same as a LLC.
-            SocietaPerAzioni,                       // SpA - public company.
+            SocietaPerAzioni,                       // SpA - public company, requires a minimum of 50,000€ to transition to.
         }
 
         internal Dictionary<IoCompanyType, string> IoCompanyTypeNames = new Dictionary<IoCompanyType, string>
@@ -34,10 +34,31 @@ namespace ItalianOverhaul
             if (CanTransitionToSpa())
             {
                MakeTransaction(-50000, TransactionCategory.Legal, "Transition to S.p.A.");
-                CompanyType = IoCompanyType.SocietaPerAzioni;
+               CompanyType = IoCompanyType.SocietaPerAzioni;
+               UpdateCompanyName();
+            }
+            else
+            {
+                // TODO: The player should be notified that they don't have enough money to transition.
             }
 
             // TODO: Add a notification for the player (gotta figure out how to do that).
+        }
+
+        private bool UpdateCompanyName()
+        {
+            if (IoCompanyTypeNames.TryGetValue(CompanyType, out string companyType))
+            {
+                // Build the new company name.
+                string newSocialReason = $"{Name} {companyType}";
+
+                // Set the new company name.
+                IoUtils.SetReadOnlyField(this, "Name", newSocialReason);
+
+                return true;
+            }
+
+            return false;
         }
     }
 }
