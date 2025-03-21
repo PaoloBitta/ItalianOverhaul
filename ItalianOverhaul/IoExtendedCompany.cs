@@ -8,7 +8,24 @@ namespace ItalianOverhaul
 {
     internal class IoExtendedCompany : Company
     {
-        IoExtendedCompany() { }
+        IoExtendedCompany() 
+        {
+            CompanyType = IoCompanyType.SocietaResponsabilitaLimitata;
+
+            // If the company is not player-owned, generate a random name.
+            if (!IsPlayerOwned())
+            {
+                string companyName = IoCompanyNameGen.GenerateCompanyName(this);
+
+                // Set the company name.
+                IoUtils.SetReadOnlyField(this, "Name", companyName);
+            }
+            else
+            {
+                // Update the company name.
+                UpdateCompanyName();
+            }
+        }
 
         public enum IoCompanyType
         {
@@ -23,10 +40,41 @@ namespace ItalianOverhaul
         };
 
         public IoCompanyType CompanyType { get; set; }
+        
+        private IoCompanyNameGen IoCompanyNameGen = new IoCompanyNameGen();
 
         public bool CanTransitionToSpa()
         {
             return Money > 50000;
+        }
+
+        public int CountFounders()
+        {
+            int founders = 0;
+
+            foreach (Employee e in NetworkEmployees)
+            {
+                if (e.Founder)
+                {
+                    founders++;
+                }
+            }
+
+            // Should always be at least 1 founder!
+            return founders;
+        }
+
+        public Employee GetSingleFounderEmployee()
+        {
+            foreach (Employee e in NetworkEmployees)
+            {
+                if (e.Founder)
+                {
+                    return e;
+                }
+            }
+
+            return null;
         }
 
         public void TransitionToSpa()
