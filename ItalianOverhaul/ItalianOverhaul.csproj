@@ -56,6 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IoExtendedCompany.cs" />
     <Compile Include="ItalianOverhaul.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
