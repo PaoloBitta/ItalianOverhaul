@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using DevConsole;
+using Console = DevConsole.Console;
 
 namespace ItalianOverhaul
 {
@@ -30,16 +32,11 @@ namespace ItalianOverhaul
     {
         public override void OnActivate()
         {
-            Debug.Log("Italian Overhaul activated!");
+            Console.LogInfo("Italian Overhaul activated!");
         }
         public override void OnDeactivate()
         {
-            Debug.Log("Italian Overhaul deactivated!");
-        }
-
-        void Start()
-        {
-            Debug.Log("Italian Overhaul started!");
+            Console.LogInfo("Italian Overhaul deactivated!");
         }
     }
 }
