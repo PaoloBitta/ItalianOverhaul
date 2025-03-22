@@ -33,10 +33,18 @@ namespace ItalianOverhaul
         public override void OnActivate()
         {
             Console.LogInfo("Italian Overhaul activated!");
+
+            GameSettings.IsDoneLoadingGame += OnGameLoad;
         }
         public override void OnDeactivate()
         {
             Console.LogInfo("Italian Overhaul deactivated!");
+        }
+
+        public void OnGameLoad(object sender, EventArgs e)
+        {
+            // This is called when the game is loaded.
+            Console.LogInfo("Game loaded!");
         }
     }
 }
