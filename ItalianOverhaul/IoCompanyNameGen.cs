@@ -96,13 +96,13 @@ namespace ItalianOverhaul
 
             bool appendTechyName = IoRandom.Next(0, 4) == 1;    // 25% chance to append a techy name to the company name.
 
-            bool isGroup = company.CompaniesBought > 0;         // If the company has acquired companies, append "Group" to the company name.
+            bool isGroup = company.BaseCompany.CompaniesBought > 0;         // If the company has acquired companies, append "Group" to the company name.
 
             // First of all, how many owners does the company have?
             if (useOwnerSurname && company.CountFounders() > 1)
             {
                 // If there are multiple owners, generate an acronym based on the first two letters of each owner's surname.
-                foreach (Employee e in company.NetworkEmployees)
+                foreach (Employee e in company.BaseCompany.NetworkEmployees)
                 {
                     if (e.Founder)
                     {

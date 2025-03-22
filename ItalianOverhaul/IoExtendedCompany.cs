@@ -8,19 +8,20 @@ using Console = DevConsole.Console;
 
 namespace ItalianOverhaul
 {
-    public class IoExtendedCompany : Company
+    public class IoExtendedCompany
     {
-        IoExtendedCompany() 
+        IoExtendedCompany(Company baseCompany) 
         {
+            BaseCompany = baseCompany;
             CompanyType = IoCompanyType.SocietaResponsabilitaLimitata;
 
             // If the company is not player-owned, generate a random name.
-            if (!IsPlayerOwned())
+            if (!baseCompany.IsPlayerOwned())
             {
                 string companyName = IoCompanyNameGen.GenerateCompanyName(this);
 
                 // Set the company name.
-                IoUtils.SetReadOnlyField(this, "Name", companyName);
+                IoUtils.SetReadOnlyField(BaseCompany, "Name", companyName);
             }
             else
             {
@@ -45,6 +46,8 @@ namespace ItalianOverhaul
         
         private IoCompanyNameGen IoCompanyNameGen = new IoCompanyNameGen();
 
+        public Company BaseCompany { get; }
+
         public bool CanTransitionToSpa()
         {
             return GameSettings.Instance.MyCompany.Money > 50000;
@@ -54,7 +57,7 @@ namespace ItalianOverhaul
         {
             int founders = 0;
 
-            foreach (Employee e in NetworkEmployees)
+            foreach (Employee e in BaseCompany.NetworkEmployees)
             {
                 if (e.Founder)
                 {
@@ -68,7 +71,7 @@ namespace ItalianOverhaul
 
         public Employee GetSingleFounderEmployee()
         {
-            foreach (Employee e in NetworkEmployees)
+            foreach (Employee e in BaseCompany.NetworkEmployees)
             {
                 if (e.Founder)
                 {
@@ -102,7 +105,7 @@ namespace ItalianOverhaul
                 if (IoCompanyTypeNames.TryGetValue(CompanyType, out string companyType))
                 {
                     // Build the new company name.
-                    string newSocialReason = $"{Name} {companyType}";
+                    string newSocialReason = $"{BaseCompany.Name} {companyType}";
 
                     // Set the new company name.
                     IoUtils.SetReadOnlyField(GameSettings.Instance.MyCompany, "Name", newSocialReason);
