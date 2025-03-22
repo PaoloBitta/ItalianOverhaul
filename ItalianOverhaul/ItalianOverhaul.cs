@@ -25,4 +25,16 @@ namespace ItalianOverhaul
 
         public static bool GiveMeFreedom = true;
     }
+
+    internal class IoBehaviour : ModBehaviour
+    {
+        public override void OnActivate()
+        {
+            Debug.Log("Italian Overhaul activated!");
+        }
+        public override void OnDeactivate()
+        {
+            Debug.Log("Italian Overhaul deactivated!");
+        }
+    }
 }
