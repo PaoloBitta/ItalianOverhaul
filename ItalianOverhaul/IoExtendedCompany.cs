@@ -10,7 +10,7 @@ namespace ItalianOverhaul
 {
     public class IoExtendedCompany
     {
-        IoExtendedCompany(Company baseCompany) 
+        public IoExtendedCompany(Company baseCompany) 
         {
             BaseCompany = baseCompany;
             CompanyType = IoCompanyType.SocietaResponsabilitaLimitata;
@@ -53,7 +53,7 @@ namespace ItalianOverhaul
             { IoCompanyType.SocietaPerAzioni, "S.p.A." },
         };
 
-        public IoCompanyType CompanyType { get; }
+        public IoCompanyType CompanyType { get; private set; }
 
         public Company BaseCompany { get; }
 
