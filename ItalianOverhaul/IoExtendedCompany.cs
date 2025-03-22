@@ -32,7 +32,14 @@ namespace ItalianOverhaul
                 string companyName = IoCompanyNameGen.GenerateCompanyName(this);
 
                 // Set the company name.
-                IoUtils.SetReadOnlyField(BaseCompany, "Name", companyName);
+                try
+                {
+                    IoUtils.SetReadOnlyField(BaseCompany, "Name", companyName);
+                }
+                catch (Exception e)
+                {
+                    Console.LogWarning($"Error setting company name: {e.Message}");
+                }
             }
             else
             {
