@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace ItalianOverhaul
 {
-    internal class ItalianOverhaulModMeta : ModMeta
+    public class ItalianOverhaulModMeta : ModMeta
     {
         public override string Name => "Italian Overhaul";
 
@@ -26,7 +26,7 @@ namespace ItalianOverhaul
         public static bool GiveMeFreedom = true;
     }
 
-    internal class IoBehaviour : ModBehaviour
+    public class IoBehaviour : ModBehaviour
     {
         public override void OnActivate()
         {
