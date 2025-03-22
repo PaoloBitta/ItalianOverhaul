@@ -18,6 +18,17 @@ namespace ItalianOverhaul
             // If the company is not player-owned, generate a random name.
             if (!baseCompany.IsPlayerOwned())
             {
+
+                // If the company is not player-owned and has a capital > 50000, increase the chance of being a SpA
+                // based on the capital (the bigger the capital, the higher the chance).
+                if (baseCompany.Money > 50000)
+                {
+                    if (Rng.Next(0, 100) < baseCompany.Money / 100000)            // 1% chance per 100'000€ - may need tweaking
+                    {
+                        CompanyType = IoCompanyType.SocietaPerAzioni;
+                    }
+                }
+
                 string companyName = IoCompanyNameGen.GenerateCompanyName(this);
 
                 // Set the company name.
@@ -42,11 +53,13 @@ namespace ItalianOverhaul
             { IoCompanyType.SocietaPerAzioni, "S.p.A." },
         };
 
-        public IoCompanyType CompanyType { get; set; }
-        
-        private IoCompanyNameGen IoCompanyNameGen = new IoCompanyNameGen();
+        public IoCompanyType CompanyType { get; }
 
         public Company BaseCompany { get; }
+
+        private IoCompanyNameGen IoCompanyNameGen = new IoCompanyNameGen();
+
+        private IoRandom Rng = new IoRandom();
 
         public bool CanTransitionToSpa()
         {
