@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Console = DevConsole.Console;
 
 namespace ItalianOverhaul
 {
-    internal class IoExtendedCompany : Company
+    public class IoExtendedCompany : Company
     {
         IoExtendedCompany() 
         {
@@ -81,7 +82,7 @@ namespace ItalianOverhaul
         {
             if (CanTransitionToSpa())
             {
-               MakeTransaction(-50000, TransactionCategory.Legal, "Transition to S.p.A.");
+               GameSettings.Instance.MyCompany.MakeTransaction(-50000, Company.TransactionCategory.Legal, "Transition to SpA");
                CompanyType = IoCompanyType.SocietaPerAzioni;
                UpdateCompanyName();
             }
@@ -95,15 +96,24 @@ namespace ItalianOverhaul
 
         private bool UpdateCompanyName()
         {
-            if (IoCompanyTypeNames.TryGetValue(CompanyType, out string companyType))
+            try
             {
-                // Build the new company name.
-                string newSocialReason = $"{Name} {companyType}";
+                if (IoCompanyTypeNames.TryGetValue(CompanyType, out string companyType))
+                {
+                    // Build the new company name.
+                    string newSocialReason = $"{Name} {companyType}";
 
-                // Set the new company name.
-                IoUtils.SetReadOnlyField(this, "Name", newSocialReason);
+                    // Set the new company name.
+                    IoUtils.SetReadOnlyField(GameSettings.Instance.MyCompany, "Name", newSocialReason);
 
-                return true;
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.LogWarning($"Error updating company name: {e.Message}");
             }
 
             return false;
