@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs/ItalianOverhaul
+/ItalianOverhaul/bin/*
+/ItalianOverhaul/obj/*
+/ItalianOverhaul/obj\*
+/ItalianOverhaul/obj/Debug/ItalianOverhaul.csproj.AssemblyReference.cache
