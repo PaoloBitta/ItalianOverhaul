@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Console = DevConsole.Console;
 
+
 namespace ItalianOverhaul
 {
     public class IoExtendedCompany : Company
@@ -46,7 +47,7 @@ namespace ItalianOverhaul
 
         public bool CanTransitionToSpa()
         {
-            return Money > 50000;
+            return GameSettings.Instance.MyCompany.Money > 50000;
         }
 
         public int CountFounders()
