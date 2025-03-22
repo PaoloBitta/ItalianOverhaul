@@ -36,5 +36,10 @@ namespace ItalianOverhaul
         {
             Debug.Log("Italian Overhaul deactivated!");
         }
+
+        void Start()
+        {
+            Debug.Log("Italian Overhaul started!");
+        }
     }
 }
