@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IoCompanyNameGen.cs" />
+    <Compile Include="IoCoreLogic.cs" />
     <Compile Include="IoExtendedCompany.cs" />
     <Compile Include="IoRandom.cs" />
     <Compile Include="IoUtils.cs" />

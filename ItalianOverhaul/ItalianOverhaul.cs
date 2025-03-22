@@ -45,6 +45,15 @@ namespace ItalianOverhaul
         {
             // This is called when the game is loaded.
             Console.LogInfo("Game loaded!");
+
+            // When a game starts, instantiate the mod's core logic.
+            IoCoreLogic coreLogic = new IoCoreLogic();
+
+            // Subscribe to the IsQuitting event to stop the core logic when the game is quitting.
+            GameSettings.OnQuit += coreLogic.OnGameQuit;
+
+            // Start the core logic loop.
+            coreLogic.StartLoop();
         }
     }
 }
